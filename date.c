@@ -18,6 +18,7 @@ int main()
 		
 		default: printf("th");
 		break;
+			
 	}
 	printf(" day of ");
 	switch(m){
