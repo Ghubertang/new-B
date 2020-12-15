@@ -31,7 +31,6 @@ int fn(int n)
 	
 }
 
-
 int main()
 {
     for(int i = 2;;i++)
