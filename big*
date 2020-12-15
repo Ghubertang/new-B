@@ -1,0 +1,109 @@
+
+#include<iostream>
+#include<stdlib.h>
+#include<string>
+int tmp[501] = { 0 };
+using namespace std;
+/*
+此部分用来做乘法，也就是将乘数的某一位与被乘数整体相乘；
+其步骤依然是一位一位乘；
+参数分别是是被乘数，乘数的某一位，进位值；
+*/
+void mutiply(int a[], int bi, int pre)
+{
+	for (int i = 499; i >= 0; i--)
+	{
+		tmp[i + 1] = (a[i] * bi + pre) % 10;
+		pre = (a[i] * bi + pre) / 10;
+	}
+}
+/*
+此部分做错位加法，上一步得到的值通过错位的方式与answer的相应位置相加；
+参数分别是答案，答案下标；
+其中局部变量indexTMP 代表tmp数组的下标；
+pre代表进位值；
+*/
+void add(int answer[], int indexAnswer)
+{
+	int indexTMP = 500;
+	int pre = 0;
+	while (indexTMP >= 0)
+	{
+		int value = answer[indexAnswer] + tmp[indexTMP] + pre;
+		answer[indexAnswer] = (answer[indexAnswer] + tmp[indexTMP] + pre) % 10;
+		pre = value / 10;
+		indexAnswer--;
+		indexTMP--;
+	}
+ 
+}
+/*
+此部分调用以上两部分功能，通过循环来实现整体的乘法
+参数分别是：被乘数，乘数，答案
+*/
+void function(int a[], int b[], int answer[])
+{
+	for (int i = 499; i >= 0; i--)
+	{
+		mutiply(a, b[i], 0);
+		add(answer, i + 500);
+	}
+}
+int main()
+{
+	string a;
+	string b;
+	string c;
+	cin >> a;
+	cin >> b;
+	int a1[500] = { 0 };
+	int b1[500] = { 0 };
+	int answer[1000] = { 0 };
+	int maxlength = a.length();
+	int minlength = b.length();
+	if (maxlength < minlength)
+	{
+		int tmp = minlength;
+		minlength = maxlength;
+		maxlength = tmp;
+	}
+    /*
+    此部分是将字符串的数值转化到int型数组中
+    */
+	for (int i = a.length() - 1, j = 499; i >= 0; i--, j--)
+	{
+		a1[j] = a[i] - 48;
+	}
+	for (int i = b.length() - 1, j = 499; i >= 0; i--, j--)
+	{
+		b1[j] = b[i] - 48;
+	}
+ 
+	function(a1, b1, answer);
+/*
+不输出前面多余的0，从真正有意义的数值开始输出，index用来记录该下标
+*/
+	int index = 0;
+	for (int i = 0; i <= 999; i++)
+	{
+		if (answer[i] != 0)
+		{
+			index=i;
+			break;
+		}
+ 
+	}
+	if(index!=0)
+	{
+		for (int k=index; k < 1000; k++)
+		{
+			cout << answer[k];
+		}
+	}
+	else
+	{
+		cout << "0";
+	}
+	system("pause");
+	return 0;
+}
