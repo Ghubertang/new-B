@@ -1,0 +1,64 @@
+#include<stdio.h>
+#include<string.h>
+int main()
+{
+	char s[100000];
+	int i=0;
+	while((s[i]=getchar())!=EOF)
+	{
+		i++;
+	}
+	char d[1000][100];
+	int p=0,o=0;
+
+	for(int j=0;j<i;j++)
+	{
+		if(s[j]>='a'&&s[j]<='z')
+		{
+		
+			d[p][o]=s[j];
+			o++;
+	    }
+		else if(s[j]>='A'&&s[j]<='Z')
+		{
+			d[p][o]=s[j]+32;
+			o++;
+		}
+		else if((s[j+1]>='a'&&s[j+1]<='z')||(s[j+1]>='A'&&s[j+1]<='Z'))
+		{
+			p++;
+			o=0;
+		}
+	}
+	p++;
+	
+	int cishu[1000]={0};
+	for(int h=0;h<p;h++)
+	{
+		for(int l=0;l<p;l++)
+		{
+			if(strcmp(d[h],d[l])==0)
+			{
+				cishu[h]++;
+			}
+		}
+	}
+	int max=0;
+	for(int h=0;h<p;h++)
+	{
+		if(cishu[h]>cishu[max])
+		{
+			max=h;
+		}
+	}
+	for(int h=0;h<p;h++)
+	{
+		if(cishu[h]==cishu[max])
+		{
+			if(strcmp(d[h],d[max])>0)
+			max=h;
+		}
+	}
+	printf("%s %d\n",d[max],cishu[max]);
+	return 0;
+}
