@@ -1,0 +1,36 @@
+#include<stdio.h>
+#include<string.h>
+int main()
+{
+	char s[100000];
+	gets(s);
+	int l=0,h=0;
+	for(int i =0;i<strlen(s);i++)
+	{
+	 if((((s[i]>='A'&&s[i]<='Z')||(s[i]>='a'&&s[i]<='z'))&&(s[i-1]<'A'||(s[i-1]>'Z'&&s[i-1]<'a')||s[i-1]>'z'))||i==0)
+	 {
+	 	l=i;
+	 }
+	  if((((s[i]>='A'&&s[i]<='Z')||(s[i]>='a'&&s[i]<='z'))&&(s[i+1]<'A'||(s[i+1]>'Z'&&s[i+1]<'a')||s[i+1]>'z'))) 
+	 {
+	 	h=i;
+	 	if(l==h)
+	 	{
+	 		printf("%c",s[h]);
+		}
+		 else
+		 {
+	 	for(int j = h;j>=l;j--)
+	 	{
+	 		printf("%c",s[j]);
+		}
+	    }
+	 }
+	 else if(s[i]<'A'||(s[i]>'Z'&&s[i]<'a')||s[i]>'z')
+	 {
+	 	printf("%c",s[i]);
+	 }
+	}
+	printf("\n");
+	return 0;
+}
