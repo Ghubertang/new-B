@@ -1,0 +1,44 @@
+#include<stdio.h>
+int main()
+{
+	int a1,a2,b1,b2,c1,c2, p,q,i,j,n,m,k,k1,k2,r1,r2, a[100][100], b[100][100], c[100][100],temp, r[100][100]  ; 
+	
+	while(scanf("%d %d",&p, &q))   //限制输出的的组数
+	
+	
+	{
+	 	if(p==0&&q==0) break;
+		for(a1=0;a1<p;a1++)
+		for(a2=0;a2<q;a2++)
+			scanf("%d",&a[a1][a2]);	
+		scanf("%d %d",&m, &n);
+		for(a1=0;a1<m;a1++)
+			for(a2=0;a2<n;a2++)
+				scanf("%d",&b[a1][a2]);	
+		scanf("%d %d",&i, &j);
+		for(c1=0;c1<i;c1++)
+			for(c2=0;c2<j;c2++)
+				scanf("%d",&c[c1][c2]);  //定义的输出的几组数据
+					
+	if((q!=m)||(i!=p)||(j!=n))   printf("No\n");  //判断不满足矩阵相乘条件，若要判断满足条件不一定能考虑全情况
+	else 
+	{
+		
+		for(a1=0;a1<p;a1++){
+			for(a2=0;a2<n;a2++){
+				temp=0;
+				for(k=0;k<m;k++){
+					temp+=a[a1][k]*b[k][a2];//相乘的算法
+				}
+				if(temp!=c[a1][a2]) printf("No\n");//对应判断行列相乘的结果，与结果的矩阵对应比较又不满足的就跳出
+		}		
+			
+}
+	if(i==p &&j==n)   printf("Yes\n");
+				else printf("No\n");	
+}
+
+}
+	return 0;
+	
+}
